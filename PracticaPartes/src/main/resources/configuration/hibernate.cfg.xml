@@ -10,9 +10,9 @@
         <property name="connection.password">toor</property>
         <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
         <property name="hibernate.show_sql">true</property>
-        <mapping class="com.example.practicapartes.model.Alumno"/>
-        <mapping class="com.example.practicapartes.model.Grupos"/>
-        <mapping class="com.example.practicapartes.model.Profesor"/>
-        <mapping class="com.example.practicapartes.model.ParteIncidencia"/>
+        <mapping class="ribera.practicapartes.Models.Alumno"/>
+        <mapping class="ribera.practicapartes.Models.Grupos"/>
+        <mapping class="ribera.practicapartes.Models.Profesor"/>
+        <mapping class="ribera.practicapartes.Models.ParteIncidencia"/>
     </session-factory>
 </hibernate-configuration>
