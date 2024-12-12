@@ -1,6 +1,7 @@
 package ribera.practicapartes.Models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "profesores")
@@ -24,6 +25,8 @@ public class Profesor {
     @Enumerated(EnumType.STRING)
     private TipoProfesor tipo;
 
+    @OneToMany(mappedBy = "profesor")
+    private List<ParteIncidencia> partes;
 
     public Profesor() {
     }
@@ -75,4 +78,10 @@ public class Profesor {
     public void setTipo(TipoProfesor tipo) {
         this.tipo = tipo;
     }
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
+
 }

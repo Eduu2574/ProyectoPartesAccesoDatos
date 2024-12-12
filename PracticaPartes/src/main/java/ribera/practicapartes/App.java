@@ -1,6 +1,7 @@
 package ribera.practicapartes;
 
 import javafx.scene.image.Image;
+import ribera.practicapartes.Controllers.listaPartesController;
 import ribera.practicapartes.Utils.R;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -14,8 +15,8 @@ import java.util.Objects;
 public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        LoginController controller = new LoginController();
-        FXMLLoader loader = new FXMLLoader(R.getUI("login.fxml"));
+        listaPartesController controller = new listaPartesController();
+        FXMLLoader loader = new FXMLLoader(R.getUI("listaPartes.fxml"));
         loader.setController(controller);
         Scene scene = new Scene(loader.load());
         stage.setTitle("Gestión de Partes");

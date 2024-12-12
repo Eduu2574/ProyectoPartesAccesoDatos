@@ -1,6 +1,7 @@
 package ribera.practicapartes.Models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "grupos")
@@ -12,6 +13,9 @@ public class Grupos {
 
     @Column(name = "nombre_grupo")
     private String nombre_grupo;
+
+    @OneToMany(mappedBy = "grupo")
+    private List<Alumno> alumnos;
 
 
     public Grupos() {
@@ -37,10 +41,7 @@ public class Grupos {
 
     @Override
     public String toString() {
-        return "Grupos{" +
-                "id_grupo=" + id_grupo +
-                ", nombre_grupo='" + nombre_grupo + '\'' +
-                '}';
+        return nombre_grupo;
     }
 
     public String getNombreGrupo() {

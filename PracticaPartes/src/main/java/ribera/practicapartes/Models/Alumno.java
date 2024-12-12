@@ -1,6 +1,7 @@
 package ribera.practicapartes.Models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "alumnos")
@@ -20,8 +21,10 @@ public class Alumno {
     private int puntos_acumulados;
 
     @ManyToOne
-    @JoinColumn(name = "id_grupo")
+    @JoinColumn(name="id_grupo", referencedColumnName = "id_grupo")
     private Grupos grupo;
+    @OneToMany(mappedBy = "alumno", cascade = CascadeType.ALL)
+    private List<ParteIncidencia> partes;
 
 
     public Alumno() {
@@ -71,5 +74,10 @@ public class Alumno {
 
     public void setGrupo(Grupos grupo) {
         this.grupo = grupo;
+    }
+
+    @Override
+    public String toString() {
+        return nombre_alum;
     }
 }

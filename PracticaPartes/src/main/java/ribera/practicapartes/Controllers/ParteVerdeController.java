@@ -16,6 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class ParteVerdeController implements Initializable {
@@ -77,7 +78,7 @@ public class ParteVerdeController implements Initializable {
         if (tfNumExpediente.getText().isEmpty() || dpFecha.getValue() == null || TaDescripcion.getText().isEmpty() || cbHora.getValue().isEmpty() || TaSancion.getText().isEmpty()) {
             Alerta.Error("Introduce todos los datos");
         } else {
-            ParteIncidencia parte = new ParteIncidencia(alumno, GuardarProfesor.getProfesor(), alumno.getGrupo(), dpFecha.getValue(), cbHora.getValue(), TaDescripcion.getText(), TaSancion.getText(), ColorParte.VERDE);
+            ParteIncidencia parte = new ParteIncidencia(alumno, GuardarProfesor.getProfesor(), alumno.getGrupo(), dpFecha.getValue().toString(), cbHora.getValue(), TaDescripcion.getText(), TaSancion.getText(), ColorParte.VERDE);
             alumnosDAO.actualizarPuntosAlumno(alumno, parte);
             partes.crearParte(parte);
             Alerta.Info("El parte ha sido creado correctamente.");
@@ -118,7 +119,7 @@ public class ParteVerdeController implements Initializable {
         if(GuardarParte.getParte() != null){
             tfNumExpediente.setText(GuardarParte.getParte().getAlumno().getNumero_expediente());
             tfGrupo.setText(GuardarParte.getParte().getGrupo().getNombreGrupo());
-            dpFecha.setValue(GuardarParte.getParte().getFecha());
+            dpFecha.setValue(LocalDate.parse(GuardarParte.getParte().getFecha()));
             cbHora.setValue(GuardarParte.getParte().getHora());
             TaDescripcion.setText(GuardarParte.getParte().getDescripcion());
             TaSancion.setText(GuardarParte.getParte().getSancion());

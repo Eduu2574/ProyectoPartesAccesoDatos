@@ -1,7 +1,10 @@
 package ribera.practicapartes.Models;
 
+import net.bytebuddy.asm.Advice;
+
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "partes_incidencia")
@@ -13,22 +16,20 @@ public class ParteIncidencia {
     private int id_parte;
 
     @ManyToOne
-    @JoinColumn(name = "id_alum")
+    @JoinColumn(name="id_alum", referencedColumnName = "id_alum")
     private Alumno alumno;
-
     @ManyToOne
-    @JoinColumn(name = "id_grupo")
+    @JoinColumn(name = "id_grupo", referencedColumnName = "id_grupo")
     private Grupos grupo;
-
     @ManyToOne
-    @JoinColumn(name = "id_profesor")
+    @JoinColumn(name = "id_profesor", referencedColumnName = "id_profesor")
     private Profesor profesor;
 
     @Column(name = "descripcion")
     private String descripcion;
 
     @Column(name = "fecha")
-    private LocalDate fecha;
+    private String fecha;
 
     @Column(name = "hora")
     private String hora;
@@ -40,14 +41,14 @@ public class ParteIncidencia {
     @Enumerated(EnumType.STRING)
     private ColorParte color;
 
-    @Column(name = "puntos_parte")
+    @Column(name = "puntos_partes")
     private int puntos_parte;
 
 
     public ParteIncidencia() {
     }
 
-    public ParteIncidencia(Alumno alumno, Profesor profesor, Grupos grupo, LocalDate fecha, String hora, String descripcion, String sancion, ColorParte color) {
+    public ParteIncidencia(Alumno alumno, Profesor profesor, Grupos grupo, String fecha, String hora, String descripcion, String sancion, ColorParte color) {
         this.alumno = alumno;
         this.profesor = profesor;
         this.grupo = grupo;
@@ -100,11 +101,11 @@ public class ParteIncidencia {
         this.descripcion = descripcion;
     }
 
-    public LocalDate getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(LocalDate fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
@@ -139,5 +140,9 @@ public class ParteIncidencia {
 
     public void setPuntos_parte(int puntos_parte) {
         this.puntos_parte = puntos_parte;
+    }
+
+    public String getExpediente_alumno () {
+        return alumno.getNumero_expediente();
     }
 }

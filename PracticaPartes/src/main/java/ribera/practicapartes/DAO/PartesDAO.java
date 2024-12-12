@@ -1,6 +1,8 @@
 package ribera.practicapartes.DAO;
 
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import ribera.practicapartes.Alerta;
 import ribera.practicapartes.Utils.HibernateUtil;
 import ribera.practicapartes.Models.ParteIncidencia;
@@ -73,5 +75,26 @@ public class PartesDAO {
             }
         }
         return cambios;
+    }
+
+    static public ObservableList<ParteIncidencia> cargarPartes () {
+        ObservableList<ParteIncidencia> partes = FXCollections.observableArrayList();
+        Transaction t = null;
+
+        try (Session sesion = HibernateUtil.getSession()) {
+            t = sesion.beginTransaction();
+
+            List<ParteIncidencia> listaPartes =sesion.createQuery("FROM ParteIncidencia", ParteIncidencia.class).list();
+            partes.addAll(listaPartes);
+
+            t.commit();
+        } catch (Exception e) {
+            if (t != null) {
+                t.rollback();
+            }
+            e.printStackTrace();
+        }
+
+        return partes;
     }
 }
