@@ -78,7 +78,7 @@ public class ParteVerdeController implements Initializable {
         if (tfNumExpediente.getText().isEmpty() || dpFecha.getValue() == null || TaDescripcion.getText().isEmpty() || cbHora.getValue().isEmpty() || TaSancion.getText().isEmpty()) {
             Alerta.Error("Introduce todos los datos");
         } else {
-            ParteIncidencia parte = new ParteIncidencia(alumno, GuardarProfesor.getProfesor(), alumno.getGrupo(), dpFecha.getValue().toString(), cbHora.getValue(), TaDescripcion.getText(), TaSancion.getText(), ColorParte.VERDE);
+            ParteIncidencia parte = new ParteIncidencia(alumno, GuardarProfesor.getProfesor(), alumno.getGrupo(), dpFecha.getValue().toString(), cbHora.getValue(), TaDescripcion.getText(), TaSancion.getText(), ColorParte.VERDE, 1);
             alumnosDAO.actualizarPuntosAlumno(alumno, parte);
             partes.crearParte(parte);
             Alerta.Info("El parte ha sido creado correctamente.");

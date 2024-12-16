@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.controlsfx.control.PropertySheet;
+import ribera.practicapartes.Alerta;
 import ribera.practicapartes.DAO.PartesDAO;
 import ribera.practicapartes.Models.ParteIncidencia;
 
@@ -44,9 +45,11 @@ public class listaPartesController {
     public Button btnNumeroExpediente;
     @FXML
     public Button btnLimpiar;
+    @FXML
+    public TableColumn col_botonVerMas;
 
     public ObservableList<ParteIncidencia> partes = FXCollections.observableArrayList();
-    private final int filas_pagina = 6;
+    private final int filas_pagina = 5;
     DateTimeFormatter formateadorFecha = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     public void initialize() {
@@ -59,6 +62,8 @@ public class listaPartesController {
         col_sancion.setCellValueFactory(new PropertyValueFactory<>("sancion"));
 
         partes.addAll(PartesDAO.cargarPartes());
+
+        tabla_partes.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         tabla_partes.setItems(partes);
 
@@ -76,6 +81,29 @@ public class listaPartesController {
                     } else {
                         setStyle("");
                     }
+                }
+            }
+        });
+
+        col_botonVerMas.setCellFactory(param -> new TableCell<ParteIncidencia, Void>() {
+            private final Button btn = new Button("Ver");
+
+            {
+                btn.setOnAction(event -> {
+                    ParteIncidencia item = getTableRow().getItem(); // Obtener el item asociado a la fila
+                    if (item != null) {
+                       Alerta.Info(item.toString());
+                    }
+                });
+                btn.setStyle("-fx-background-color: #0078D7; -fx-text-fill: white; -fx-border-radius: 5px; -fx-font-size: 14px; -fx-padding: 5px 10px;");
+            }
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(btn);
                 }
             }
         });
@@ -98,28 +126,41 @@ public class listaPartesController {
         int a = indice * filas_pagina;
         int b = Math.min(a + filas_pagina, lista.size());
         tabla_partes.setItems(FXCollections.observableArrayList(lista.subList(a, b)));
+        tabla_partes.refresh();
     }
 
     @FXML
     public void onBtnFechas(ActionEvent event) {
-        ObservableList<ParteIncidencia> filtradaFecha = FXCollections.observableArrayList();
-        for (ParteIncidencia a: partes) {
-            LocalDate fecha = LocalDate.parse(a.getFecha(), formateadorFecha);
-            if (!fecha.isBefore(fechaInicio.getValue()) && !fecha.isAfter(fechaFin.getValue())) {
-                filtradaFecha.add(a);
+        if (fechaInicio.getValue() == null && fechaFin.getValue() != null|| fechaFin.getValue() == null && fechaInicio.getValue() != null) {
+            Alerta.Error("Rellene los dos campos de fecha");
+        } else if (fechaInicio.getValue() == null && fechaFin.getValue() == null) {
+            tabla_partes.setItems(partes);
+
+            int pageCount = (int) Math.ceil(partes.size() / (double) filas_pagina);
+            pagination.setPageCount(pageCount);
+            pagination.setPageFactory(this::crearPagina);
+
+            mostrarPagina(0, partes);
+        } else {
+            ObservableList<ParteIncidencia> filtradaFecha = FXCollections.observableArrayList();
+            for (ParteIncidencia a: partes) {
+                LocalDate fecha = LocalDate.parse(a.getFecha(), formateadorFecha);
+                if (!fecha.isBefore(fechaInicio.getValue()) && !fecha.isAfter(fechaFin.getValue())) {
+                    filtradaFecha.add(a);
+                }
             }
+
+            tabla_partes.setItems(filtradaFecha);
+
+            int pageCount = (int) Math.ceil(filtradaFecha.size() / (double) filas_pagina);
+            pagination.setPageCount(pageCount);
+            pagination.setPageFactory(index -> {
+                mostrarPagina(index, filtradaFecha);
+                return tabla_partes;
+            });
+
+            mostrarPagina(0, filtradaFecha);
         }
-
-        tabla_partes.setItems(filtradaFecha);
-
-        int pageCount = (int) Math.ceil(filtradaFecha.size() / (double) filas_pagina);
-        pagination.setPageCount(pageCount);
-        pagination.setPageFactory(index -> {
-            mostrarPagina(index, filtradaFecha);
-            return tabla_partes;
-        });
-
-        mostrarPagina(0, filtradaFecha);
     }
 
     @FXML

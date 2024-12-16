@@ -48,7 +48,7 @@ public class ParteIncidencia {
     public ParteIncidencia() {
     }
 
-    public ParteIncidencia(Alumno alumno, Profesor profesor, Grupos grupo, String fecha, String hora, String descripcion, String sancion, ColorParte color) {
+    public ParteIncidencia(Alumno alumno, Profesor profesor, Grupos grupo, String fecha, String hora, String descripcion, String sancion, ColorParte color, int puntos_parte) {
         this.alumno = alumno;
         this.profesor = profesor;
         this.grupo = grupo;
@@ -57,6 +57,7 @@ public class ParteIncidencia {
         this.descripcion = descripcion;
         this.sancion = sancion;
         this.color = color;
+        this.puntos_parte = puntos_parte;
         this.puntos_parte = color.getPuntos(); // Inicializar los puntos basados en el color
     }
 
@@ -144,5 +145,18 @@ public class ParteIncidencia {
 
     public String getExpediente_alumno () {
         return alumno.getNumero_expediente();
+    }
+
+    @Override
+    public String toString() {
+        return "id_parte= " + id_parte +
+                ",\nalumno= " + alumno +
+                ",\ngrupo= " + grupo +
+                ",\nprofesor= " + profesor +
+                ",\ndescripcion= " + descripcion +
+                ",\nfecha='" + fecha +
+                ",\nhora= " + hora  +
+                ",\nsancion= " + sancion +
+                ",\ncolor= " + color;
     }
 }

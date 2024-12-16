@@ -44,7 +44,7 @@
                   <TableColumn fx:id="col_fecha" prefWidth="86.4000244140625" text="Fecha" />
                   <TableColumn fx:id="col_descripcion" minWidth="0.0" prefWidth="127.99996948242188" text="Descripcion" />
                   <TableColumn fx:id="col_sancion" prefWidth="114.39996337890625" text="Sancion" />
-                  <TableColumn prefWidth="56.800048828125" />
+                  <TableColumn fx:id="col_botonVerMas" editable="false" prefWidth="56.800048828125" />
                </columns>
             </TableView>
          </children>
