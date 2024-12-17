@@ -33,16 +33,18 @@ public class PartesDAO {
     }
 
 
-    public void crearParte(ParteIncidencia parteIncidencia) {
+    public boolean crearParte(ParteIncidencia parteIncidencia) {
         Transaction transaction = null;
         try (Session session = factory.openSession()) {
             transaction = session.beginTransaction();
             session.save(parteIncidencia);
             transaction.commit();
+            return true;
         } catch (Exception e) {
             Alerta.Error(e.getMessage());
+            return false;
         }
-    }//insertarParte
+    }
 
 
     public List<ParteIncidencia> obtenerPartesAlumno(int id_alumno){
@@ -64,18 +66,20 @@ public class PartesDAO {
     public boolean actualizarParte(ParteIncidencia parte) {
         Transaction transaction = null;
         boolean cambios = false;
-        try(Session session = factory.openSession()) {
+        try (Session session = factory.openSession()) {
             transaction = session.beginTransaction();
-            session.update(parte);
+            session.update(parte);  // Actualiza el objeto en la base de datos
             cambios = true;
-            transaction.commit();
+            transaction.commit();  // Confirma la transacción
         } catch (Exception e) {
-            if(transaction != null) {
-                transaction.rollback();
+            if (transaction != null) {
+                transaction.rollback();  // Si ocurre un error, deshacemos los cambios
             }
+            Alerta.Error("Error al actualizar el parte: " + e.getMessage());
         }
-        return cambios;
+        return cambios;  // Retorna si hubo cambios exitosos o no
     }
+
 
     static public ObservableList<ParteIncidencia> cargarPartes () {
         ObservableList<ParteIncidencia> partes = FXCollections.observableArrayList();
