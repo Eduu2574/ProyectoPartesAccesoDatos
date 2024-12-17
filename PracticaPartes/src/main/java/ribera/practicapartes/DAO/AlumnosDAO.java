@@ -32,14 +32,14 @@ public class AlumnosDAO {
         return listaAlumnos;
     }
 
-    public AlumnosDAO buscarAlumnoPorExpediente(String expediente) {
-        Session session = factory.openSession();  // Asegúrate de abrir la sesión
-        AlumnosDAO alumno = null;
+    public Alumno buscarAlumnoPorExpediente(String expediente) {
+        Session session = factory.openSession();  // Abro la sesión
+        Alumno alumn = null;
         try {
             session.beginTransaction();  // Comienza la transacción
             Query query = session.createQuery("FROM Alumno WHERE numero_expediente = :numero_expediente");
             query.setParameter("numero_expediente", expediente);
-            alumno = (AlumnosDAO) query.uniqueResult();
+            alumn = (Alumno) query.uniqueResult();
             session.getTransaction().commit();  // Comete la transacción
         } catch (Exception e) {
             if (session.getTransaction() != null) {
@@ -47,7 +47,7 @@ public class AlumnosDAO {
             }
             Alerta.Error(e.getMessage());
         }
-        return alumno;
+        return alumn;
     }
 
     public void actualizarPuntosAlumno(Alumno alumno, ParteIncidencia parte) {
@@ -67,6 +67,8 @@ public class AlumnosDAO {
             }
         }
     }
+
+
 
     static public ObservableList<Alumno> cargarAlumnos () {
         ObservableList<Alumno> alumnos = FXCollections.observableArrayList();
