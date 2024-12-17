@@ -7,9 +7,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.controlsfx.control.PropertySheet;
-import ribera.practicapartes.Alerta;
 import ribera.practicapartes.DAO.PartesDAO;
 import ribera.practicapartes.Models.ParteIncidencia;
+import ribera.practicapartes.Utils.AlertUtils;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -92,7 +92,7 @@ public class listaPartesController {
                 btn.setOnAction(event -> {
                     ParteIncidencia item = getTableRow().getItem(); // Obtener el item asociado a la fila
                     if (item != null) {
-                       Alerta.Info(item.toString());
+                        AlertUtils.mostrarAviso(item.toString());
                     }
                 });
                 btn.setStyle("-fx-background-color: #0078D7; -fx-text-fill: white; -fx-border-radius: 5px; -fx-font-size: 14px; -fx-padding: 5px 10px;");
@@ -132,7 +132,7 @@ public class listaPartesController {
     @FXML
     public void onBtnFechas(ActionEvent event) {
         if (fechaInicio.getValue() == null && fechaFin.getValue() != null|| fechaFin.getValue() == null && fechaInicio.getValue() != null) {
-            Alerta.Error("Rellene los dos campos de fecha");
+            AlertUtils.mostrarError("Rellene los dos campos de fecha");
         } else if (fechaInicio.getValue() == null && fechaFin.getValue() == null) {
             tabla_partes.setItems(partes);
 

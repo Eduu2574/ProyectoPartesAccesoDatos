@@ -5,7 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import ribera.practicapartes.Models.ParteIncidencia;
 import ribera.practicapartes.Models.Alumno;
-import ribera.practicapartes.Alerta;
+import ribera.practicapartes.Utils.AlertUtils;
 import ribera.practicapartes.Utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -27,7 +27,7 @@ public class AlumnosDAO {
             listaAlumnos.addAll(alumnos);
             transaction.commit();
         }catch (Exception e){
-            Alerta.Error(e.getMessage());
+            AlertUtils.mostrarError(e.getMessage());
         }
         return listaAlumnos;
     }
@@ -45,7 +45,7 @@ public class AlumnosDAO {
             if (session.getTransaction() != null) {
                 session.getTransaction().rollback();  // En caso de error, realiza rollback
             }
-            Alerta.Error(e.getMessage());
+            AlertUtils.mostrarError(e.getMessage());
         }
         return alumn;
     }

@@ -3,7 +3,7 @@ package ribera.practicapartes.DAO;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import ribera.practicapartes.Alerta;
+import ribera.practicapartes.Utils.AlertUtils;
 import ribera.practicapartes.Utils.HibernateUtil;
 import ribera.practicapartes.Models.ParteIncidencia;
 import org.hibernate.Session;
@@ -26,7 +26,7 @@ public class PartesDAO {
             listaPartes.addAll(parteIncidencias);
             transaction.commit();
         }catch (Exception e){
-            Alerta.Error(e.getMessage());
+            AlertUtils.mostrarError(e.getMessage());
             e.printStackTrace();
         }
         return listaPartes;
@@ -41,7 +41,7 @@ public class PartesDAO {
             transaction.commit();
             return true;
         } catch (Exception e) {
-            Alerta.Error(e.getMessage());
+            AlertUtils.mostrarError(e.getMessage());
             return false;
         }
     }
@@ -57,7 +57,7 @@ public class PartesDAO {
             listaPartes = query.getResultList();
             transaction.commit();
         }catch (Exception e){
-            Alerta.Error(e.getMessage());
+            AlertUtils.mostrarError(e.getMessage());
             e.printStackTrace();
         }
         return listaPartes;
@@ -75,7 +75,7 @@ public class PartesDAO {
             if (transaction != null) {
                 transaction.rollback();  // Si ocurre un error, deshacemos los cambios
             }
-            Alerta.Error("Error al actualizar el parte: " + e.getMessage());
+            AlertUtils.mostrarError("Error al actualizar el parte: " + e.getMessage());
         }
         return cambios;  // Retorna si hubo cambios exitosos o no
     }

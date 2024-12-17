@@ -17,8 +17,8 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         //cambiar estas dos lineas a login
-        listaAlumnosController controller = new listaAlumnosController();
-        FXMLLoader loader = new FXMLLoader(R.getUI("listaAlumnos.fxml"));
+        LoginController controller = new LoginController();
+        FXMLLoader loader = new FXMLLoader(R.getUI("login.fxml"));
 
         loader.setController(controller);
         Scene scene = new Scene(loader.load());

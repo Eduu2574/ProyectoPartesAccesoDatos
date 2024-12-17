@@ -58,7 +58,7 @@ public class LoginController {
     }
 
     void logIn(String numeroid) throws IOException {
-        mostrarConfirmacion("Login correcto.");
+        //mostrarAviso("Login correcto.");
         ParteVerdeController parteController = new ParteVerdeController(profesor);
         FXMLLoader loader = new FXMLLoader(R.getUI("parteVerde.fxml"));
         loader.setController(parteController);

@@ -14,7 +14,6 @@ import javafx.stage.Stage;
 import ribera.practicapartes.DAO.AlumnosDAO;
 import ribera.practicapartes.DAO.PartesDAO;
 import ribera.practicapartes.GuardarParte;
-import ribera.practicapartes.GuardarProfesor;
 import ribera.practicapartes.Models.Alumno;
 import ribera.practicapartes.Models.ColorParte;
 import ribera.practicapartes.Models.ParteIncidencia;
