@@ -1,10 +1,6 @@
 package ribera.practicapartes.Models;
 
-import net.bytebuddy.asm.Advice;
-
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "partes_incidencia")
@@ -16,14 +12,13 @@ public class ParteIncidencia {
     private int id_parte;
 
     @ManyToOne
-    @JoinColumn(name="id_alum", referencedColumnName = "id_alum")
+    @JoinColumn(name="id_alum")
     private Alumno alumno;
     @ManyToOne
-    @JoinColumn(name = "id_grupo", referencedColumnName = "id_grupo")
+    @JoinColumn(name = "id_grupo")
     private Grupos grupo;
-    @ManyToOne
-    @JoinColumn(name = "id_profesor", referencedColumnName = "id_profesor")
-    private Profesor profesor;
+    @JoinColumn(name = "id_profesor")
+    private int id_profesor;
 
     @Column(name = "descripcion")
     private String descripcion;
@@ -37,6 +32,7 @@ public class ParteIncidencia {
     @Column(name = "sancion")
     private String sancion;
 
+
     @Column(name = "color")
     @Enumerated(EnumType.STRING)
     private ColorParte color;
@@ -48,18 +44,19 @@ public class ParteIncidencia {
     public ParteIncidencia() {
     }
 
-    public ParteIncidencia(Alumno alumno, Profesor profesor, Grupos grupo, String fecha, String hora, String descripcion, String sancion, ColorParte color, int puntos_parte) {
+    public ParteIncidencia(Alumno alumno, int idProfesor, Grupos grupo, String fecha, String hora, String descripcion, String sancion, ColorParte color) {
         this.alumno = alumno;
-        this.profesor = profesor;
+        this.id_profesor = idProfesor;
         this.grupo = grupo;
         this.fecha = fecha;
         this.hora = hora;
         this.descripcion = descripcion;
         this.sancion = sancion;
         this.color = color;
-        this.puntos_parte = puntos_parte;
         this.puntos_parte = color.getPuntos(); // Inicializar los puntos basados en el color
     }
+
+
 
 
     public int getId_parte() {
@@ -86,12 +83,12 @@ public class ParteIncidencia {
         this.grupo = grupo;
     }
 
-    public Profesor getProfesor() {
-        return profesor;
+    public int getId_profesor() {
+        return id_profesor;
     }
 
-    public void setProfesor(Profesor profesor) {
-        this.profesor = profesor;
+    public void setId_profesor(int id_profesor) {
+        this.id_profesor = id_profesor;
     }
 
     public String getDescripcion() {
@@ -132,8 +129,11 @@ public class ParteIncidencia {
 
     public void setColor(ColorParte color) {
         this.color = color;
-        this.puntos_parte = color.getPuntos(); // Al cambiar el color, actualizar los puntos
+        //this.puntos_parte = color.getPuntos(); // Al cambiar el color, actualizar los puntos
     }
+
+
+
 
     public int getPuntos_parte() {
         return puntos_parte;
@@ -143,20 +143,9 @@ public class ParteIncidencia {
         this.puntos_parte = puntos_parte;
     }
 
+
+
     public String getExpediente_alumno () {
         return alumno.getNumero_expediente();
-    }
-
-    @Override
-    public String toString() {
-        return "id_parte= " + id_parte +
-                ",\nalumno= " + alumno +
-                ",\ngrupo= " + grupo +
-                ",\nprofesor= " + profesor +
-                ",\ndescripcion= " + descripcion +
-                ",\nfecha='" + fecha +
-                ",\nhora= " + hora  +
-                ",\nsancion= " + sancion +
-                ",\ncolor= " + color;
     }
 }
