@@ -6,16 +6,12 @@ import org.hibernate.query.Query;
 import ribera.practicapartes.Models.Profesor;
 import ribera.practicapartes.Utils.HibernateUtil;
 
-import java.util.Collections;
-import java.util.Objects;
-
 public class ProfesorDAO {
 
     public ProfesorDAO() {}
 
     public boolean authenticate(String codigo, String password) {
-        Session session = HibernateUtil.getSession();
-        try {
+        try (Session session = HibernateUtil.getSession()) {
             Query<Profesor> query = session.createQuery(
                     "FROM Profesor WHERE numero_asignado = :codigo AND contrasena = :password",
                     Profesor.class
@@ -26,8 +22,6 @@ public class ProfesorDAO {
             Profesor profesor = query.uniqueResult();
 
             return profesor != null; // Retorna true si el usuario existe
-        } finally {
-            session.close();
         }
     }
 
@@ -38,7 +32,7 @@ public class ProfesorDAO {
         try {
             transaction = session.beginTransaction();
             profesor = session.createQuery("from Profesor where numero_asignado = :codigo", Profesor.class).setParameter("codigo", codigo)
-                    .uniqueResult();;
+                    .uniqueResult();
             transaction.commit();
         } catch (Exception e) {
             if(transaction != null)
