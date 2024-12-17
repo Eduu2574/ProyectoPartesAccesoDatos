@@ -18,7 +18,7 @@
          </font>
       </Label>
       <Button fx:id="bt_parteVerde" layoutX="225.0" layoutY="138.0" mnemonicParsing="false" onAction="#onParteVerdeClick" prefHeight="49.0" prefWidth="154.0" style="-fx-background-color: #20b916;" text="PARTE VERDE" />
-      <Button fx:id="bt_parteNaranja" layoutX="491.0" layoutY="138.0" mnemonicParsing="false" onAction="#onParteNaranjaClick" prefHeight="49.0" prefWidth="154.0" style="-fx-background-color: ffa80f;" text="PARTE NARANJA" />
+      <Button fx:id="bt_parteNaranja" layoutX="491.0" layoutY="138.0" mnemonicParsing="false" onAction="#onParteNaranjaClick" prefHeight="49.0" prefWidth="154.0" style="-fx-background-color: #ffa80f;" text="PARTE NARANJA" />
       <Button fx:id="bt_parteRojo" layoutX="755.0" layoutY="138.0" mnemonicParsing="false" onAction="#onParteRojoClick" prefHeight="49.0" prefWidth="154.0" style="-fx-background-color: #ff0000;" text="PARTE ROJO" />
       <Label layoutX="61.0" layoutY="231.0" prefHeight="30.0" prefWidth="291.0" text="NÚMERO EXPEDIENTE ALUMNO">
          <font>
@@ -71,6 +71,6 @@
       </Label>
       <Button fx:id="BtCrear" layoutX="305.0" layoutY="739.0" mnemonicParsing="false" onAction="#onCrearParteClick" prefHeight="62.0" prefWidth="182.0" style="-fx-background-color: #3396ff;" text="CREAR PARTE" textFill="WHITE" />
       <Button fx:id="BtActualizar" layoutX="691.0" layoutY="739.0" mnemonicParsing="false" onAction="#onActualizarParteClick" prefHeight="62.0" prefWidth="182.0" style="-fx-background-color: #3396ff;" text="ACTUALIZAR PARTE" textFill="WHITE" />
-      <TextField fx:id="tfNumExpediente" layoutX="396.0" layoutY="220.0" prefHeight="39.0" prefWidth="270.0" />
+      <TextField fx:id="tfNumExpediente" layoutX="396.0" layoutY="220.0" onKeyTyped="#onPressedAlumno" prefHeight="39.0" prefWidth="270.0" />
    </children>
 </AnchorPane>
