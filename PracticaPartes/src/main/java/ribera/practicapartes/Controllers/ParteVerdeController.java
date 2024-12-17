@@ -1,12 +1,15 @@
 package ribera.practicapartes.Controllers;
 
-import ribera.practicapartes.Alerta;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
+import ribera.practicapartes.GuardarProfesor;
+import ribera.practicapartes.Utils.AlertUtils;
 import ribera.practicapartes.Models.Profesor;
-import ribera.practicapartes.Utils.CambioEscena;
 import ribera.practicapartes.DAO.AlumnosDAO;
 import ribera.practicapartes.DAO.PartesDAO;
 import ribera.practicapartes.GuardarParte;
-import ribera.practicapartes.GuardarProfesor;
 import ribera.practicapartes.Models.Alumno;
 import ribera.practicapartes.Models.ColorParte;
 import ribera.practicapartes.Models.ParteIncidencia;
@@ -14,7 +17,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import ribera.practicapartes.Utils.CambioEscena;
+import ribera.practicapartes.Utils.R;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -58,43 +64,83 @@ public class ParteVerdeController implements Initializable {
     private TextField tfNumExpediente;
 
 
-    private PartesDAO partes=new PartesDAO();
-    private AlumnosDAO alumnosDAO=new AlumnosDAO();
+    private PartesDAO partes = new PartesDAO();
+    private AlumnosDAO alumnosDAO = new AlumnosDAO();
     private Alumno alumno;
     private Profesor profesor;
 
     public ParteVerdeController(Profesor profesor) {
-        this.profesor=profesor;
+        this.profesor = profesor;
     }
-
 
     @FXML
     void onActualizarParteClick(ActionEvent event) {
+        ParteIncidencia parte = GuardarParte.getParte();
+        if (parte != null) {
+            // Actualizamos los datos del parte
+            parte.setFecha(dpFecha.getValue().toString());
+            parte.setHora(cbHora.getValue());
+            parte.setDescripcion(TaDescripcion.getText());
+            parte.setSancion(TaSancion.getText());
+            parte.setColor(ColorParte.VERDE); // Especifica que es un parte verde
+            parte.setPuntos_parte(parte.getColor().getPuntos());
 
-    }
+            alumno = parte.getAlumno();
+            alumnosDAO.actualizarPuntosAlumno(alumno, parte); // Actualiza los puntos del alumno
 
-    @FXML
-    void onCrearParteClick(ActionEvent event) {
-        if (tfNumExpediente.getText().isEmpty() || dpFecha.getValue() == null || TaDescripcion.getText().isEmpty() || cbHora.getValue().isEmpty() || TaSancion.getText().isEmpty()) {
-            Alerta.Error("Introduce todos los datos");
-        } else {
-            ParteIncidencia parte = new ParteIncidencia(alumno, GuardarProfesor.getProfesor(), alumno.getGrupo(), dpFecha.getValue().toString(), cbHora.getValue(), TaDescripcion.getText(), TaSancion.getText(), ColorParte.VERDE, 1);
-            alumnosDAO.actualizarPuntosAlumno(alumno, parte);
-            partes.crearParte(parte);
-            Alerta.Info("El parte ha sido creado correctamente.");
+            if (partes.actualizarParte(parte)) {
+                AlertUtils.mostrarAviso("El parte verde se ha actualizado correctamente.");
+                // Cierra la ventana actual
+                Stage stage = (Stage) BtActualizar.getScene().getWindow();
+                stage.close();
+            } else {
+                AlertUtils.mostrarError("No se ha podido actualizar el parte verde.");
+            }
         }
     }
 
-    @FXML
-    void onParteNaranjaClick(ActionEvent event) {
-        CambioEscena.cambiarEscena(bt_parteNaranja, "parteNaranja.fxml");
 
+
+    @FXML
+    void onCrearParteClick(ActionEvent event) {
+        if (validarCampos()) {
+            ParteIncidencia parte = crearParte(ColorParte.VERDE);
+            alumnosDAO.actualizarPuntosAlumno(alumno, parte);
+
+            if (partes.crearParte(parte)) {
+                AlertUtils.mostrarAviso("El parte ha sido creado correctamente.");
+                limpiarCampos();
+            } else {
+                AlertUtils.mostrarError("No se ha podido crear el parte, revisa los datos.");
+            }
+        } else {
+            AlertUtils.mostrarError("Introduce todos los datos.");
+        }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        inicializarCampos();
+        cargarParteExistente();
     }
 
     @FXML
-    void onParteRojoClick(ActionEvent event) {
-        CambioEscena.cambiarEscena(bt_parteRojo, "parteRojo.fxml");
+    void onParteNaranjaClick(ActionEvent event) throws IOException {
+        // Crear el controlador con los datos del profesor
+        ParteNaranjaController parteNaranjaController = new ParteNaranjaController(profesor);
 
+        // Llamar al método de cambio de escena con los datos
+        CambioEscena.cambiarEscenaConDatos(bt_parteNaranja, "parteNaranja.fxml", parteNaranjaController);
+    }
+
+
+    @FXML
+    void onParteRojoClick(ActionEvent event) throws IOException {
+        // Crear el controlador de la parte roja y pasar el profesor
+        ParteRojoController parteRojoController = new ParteRojoController(profesor);
+
+        // Cambiar a la escena de Parte Roja con los datos del controlador
+        CambioEscena.cambiarEscenaConDatos(bt_parteRojo, "parteRojo.fxml", parteRojoController);
     }
 
     @FXML
@@ -102,27 +148,63 @@ public class ParteVerdeController implements Initializable {
 
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        cbHora.getItems().addAll(
-                "08:30-09:20",
-                "09:25-10:15",
-                "10:20-11:10",
-                "11:40-12:30",
-                "12:35-13:25",
-                "13:30-14:20"
-        );
+    @FXML
+    void onPressedAlumno(KeyEvent event) {
+        String numExpediente = tfNumExpediente.getText();
+        alumno = alumnosDAO.buscarAlumnoPorExpediente(numExpediente);
 
-        tfNombreProfesor.setText(profesor.getNombre());
-
-
-        if(GuardarParte.getParte() != null){
-            tfNumExpediente.setText(GuardarParte.getParte().getAlumno().getNumero_expediente());
-            tfGrupo.setText(GuardarParte.getParte().getGrupo().getNombreGrupo());
-            dpFecha.setValue(LocalDate.parse(GuardarParte.getParte().getFecha()));
-            cbHora.setValue(GuardarParte.getParte().getHora());
-            TaDescripcion.setText(GuardarParte.getParte().getDescripcion());
-            TaSancion.setText(GuardarParte.getParte().getSancion());
+        if (numExpediente.isEmpty()) {
+            tfGrupo.setText("");
+        } else {
+            tfGrupo.setText(alumno != null ? alumno.getGrupo().getNombreGrupo() : null);
         }
+    }
+
+    private void inicializarCampos() {
+        tfNombreProfesor.setText(profesor.getNombre());
+        cbHora.getItems().addAll(
+                "08:30-09:20", "09:25-10:15", "10:20-11:10", "11:40-12:30", "12:35-13:25", "13:30-14:20",
+                "16:00-16:50", "16:55-17:45", "17:50-18:40", "18:55-19:45", "19:50-20:40", "20:45-21:40");
+    }
+
+    private void cargarParteExistente() {
+        ParteIncidencia parte = GuardarParte.getParte();
+        if (parte != null) {
+            tfNumExpediente.setText(parte.getAlumno().getNumero_expediente());
+            tfGrupo.setText(parte.getGrupo().getNombreGrupo());
+            dpFecha.setValue(LocalDate.parse(parte.getFecha()));
+            cbHora.setValue(parte.getHora());
+            TaDescripcion.setText(parte.getDescripcion());
+            TaSancion.setText(parte.getSancion());
+        }
+    }
+
+    private boolean validarCampos() {
+        return !tfNumExpediente.getText().isEmpty()&& dpFecha.getValue() != null&& !TaDescripcion.getText().isEmpty()&& cbHora.getValue() != null&& !TaSancion.getText().isEmpty() && !(tfGrupo.getText() == null);    }
+
+    private ParteIncidencia crearParte(ColorParte color) {
+        return new ParteIncidencia(
+                alumno, profesor.getId_profesor(), alumno.getGrupo(),
+                dpFecha.getValue().toString(), cbHora.getValue(),
+                TaDescripcion.getText(), TaSancion.getText(), color
+        );
+    }
+
+    private void actualizarDatosParte(ParteIncidencia parte) {
+        parte.setFecha(dpFecha.getValue().toString());
+        parte.setHora(cbHora.getValue());
+        parte.setDescripcion(TaDescripcion.getText());
+        parte.setSancion(TaSancion.getText());
+        parte.setColor(ColorParte.VERDE);
+        parte.setPuntos_parte(parte.getColor().getPuntos());
+    }
+
+    private void limpiarCampos() {
+        tfNumExpediente.clear();
+        tfGrupo.setText("");
+        dpFecha.setValue(null);
+        cbHora.setValue(null);
+        TaDescripcion.clear();
+        TaSancion.clear();
     }
 }
