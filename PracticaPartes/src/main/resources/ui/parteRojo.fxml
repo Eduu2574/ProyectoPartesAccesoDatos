@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="808.0" prefWidth="1160.0" style="-fx-background-color: e35050;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ribera.practicapartes.Controllers.ParteRojoController">
+<AnchorPane prefHeight="808.0" prefWidth="1160.0" style="-fx-background-color: e35050;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="234.0" layoutY="44.0" text="PARTE ROJO DE NOTA NEGATIVA">
          <font>
@@ -72,6 +72,6 @@
       <Button fx:id="BtCrear" layoutX="305.0" layoutY="739.0" mnemonicParsing="false" onAction="#onCrearParteClick" prefHeight="62.0" prefWidth="182.0" style="-fx-background-color: #3396ff;" text="CREAR PARTE" textFill="WHITE" />
       <Button fx:id="BtActualizar" layoutX="691.0" layoutY="739.0" mnemonicParsing="false" onAction="#onActualizarParteClick" prefHeight="62.0" prefWidth="182.0" style="-fx-background-color: #3396ff;" text="ACTUALIZAR PARTE" textFill="WHITE" />
       <ComboBox fx:id="CbSancion" layoutX="626.0" layoutY="528.0" onAction="#onSancionRecibirClick" prefHeight="49.0" prefWidth="483.0" />
-      <TextField fx:id="tfNumExpediente" layoutX="367.0" layoutY="227.0" prefHeight="39.0" prefWidth="270.0" />
+      <TextField fx:id="tfNumExpediente" layoutX="367.0" layoutY="227.0" onKeyReleased="#onPressedAlumno" prefHeight="39.0" prefWidth="270.0" />
    </children>
 </AnchorPane>
