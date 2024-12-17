@@ -12,12 +12,12 @@ import javafx.stage.Stage;
 import org.apache.commons.codec.digest.DigestUtils;
 import ribera.practicapartes.DAO.ProfesorDAO;
 import ribera.practicapartes.Models.Profesor;
+import ribera.practicapartes.Models.SessionManager;
 import ribera.practicapartes.Utils.R;
 
 import java.io.IOException;
 import java.util.Objects;
 
-import static ribera.practicapartes.Utils.AlertUtils.mostrarConfirmacion;
 import static ribera.practicapartes.Utils.AlertUtils.mostrarError;
 import static ribera.practicapartes.Utils.Validador.validarTextoNoVacio;
 
@@ -51,27 +51,18 @@ public class LoginController {
 
         if (dao.authenticate(numeroid, pswd)) {
             profesor = dao.obtenerProfesor(numeroid);
-            logIn(numeroid);
+            logIn();
         } else {
             mostrarError("Los datos de inicio de sesión no son correctos.");
         }
     }
 
-    void logIn(String numeroid) throws IOException {
+    void logIn() throws IOException {
         //mostrarAviso("Login correcto.");
-        ParteVerdeController parteController = new ParteVerdeController(profesor);
+        SessionManager.getInstance().setProfesorAutenticado(profesor);
         FXMLLoader loader = new FXMLLoader(R.getUI("parteVerde.fxml"));
-        loader.setController(parteController);
         Scene scene = new Scene(loader.load());
         Stage stage = new Stage();
-
-        try {
-            Image icono = new Image(Objects.requireNonNull(R.getImage("logo_icono.jpg")));
-            stage.getIcons().add(icono);
-        } catch (Exception e) {
-            System.out.println("No se ha podido cargar el icono de la aplicación.");
-        }
-
         stage.setScene(scene);
         stage.show();
     }

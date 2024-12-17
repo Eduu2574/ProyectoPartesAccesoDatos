@@ -14,10 +14,7 @@ import javafx.stage.Stage;
 import ribera.practicapartes.DAO.AlumnosDAO;
 import ribera.practicapartes.DAO.PartesDAO;
 import ribera.practicapartes.GuardarParte;
-import ribera.practicapartes.Models.Alumno;
-import ribera.practicapartes.Models.ColorParte;
-import ribera.practicapartes.Models.ParteIncidencia;
-import ribera.practicapartes.Models.Profesor;
+import ribera.practicapartes.Models.*;
 import ribera.practicapartes.Utils.AlertUtils;
 import ribera.practicapartes.Utils.CambioEscena;
 
@@ -68,11 +65,7 @@ public class ParteNaranjaController implements Initializable {
     private PartesDAO partes = new PartesDAO();
     private AlumnosDAO alumnosDAO = new AlumnosDAO();
     private Alumno alumno;
-    private Profesor profesor;
-
-    public ParteNaranjaController(Profesor profesor) {
-        this.profesor = profesor;
-    }
+    private Profesor profesor = SessionManager.getInstance().getProfesorAutenticado();
 
     @FXML
     void onActualizarParteClick(ActionEvent event) {
@@ -117,29 +110,19 @@ public class ParteNaranjaController implements Initializable {
 
     @FXML
     void onParteNaranjaClick(ActionEvent event) throws IOException {
-        // Crear el controlador de la parte naranja y pasar el profesor
-        ParteNaranjaController parteNaranjaController = new ParteNaranjaController(profesor);
 
-        // Cambiar a la escena de Parte Naranja con los datos del controlador
-        CambioEscena.cambiarEscenaConDatos(bt_parteNaranja, "parteNaranja.fxml", parteNaranjaController);
     }
 
     @FXML
     void onParteRojoClick(ActionEvent event) throws IOException {
-        // Crear el controlador de la parte roja y pasar el profesor
-        ParteRojoController parteRojoController = new ParteRojoController(profesor);
-
-        // Cambiar a la escena de Parte Roja con los datos del controlador
-        CambioEscena.cambiarEscenaConDatos(bt_parteRojo, "parteRojo.fxml", parteRojoController);
+        // Cambiar a la escena de Parte Rojo
+        CambioEscena.cambiarEscena(bt_parteRojo, "parteRojo.fxml");
     }
 
     @FXML
     void onParteVerdeClick(ActionEvent event) throws IOException {
-        // Crear el controlador de la parte verde y pasar el profesor
-        ParteVerdeController parteVerdeController = new ParteVerdeController(profesor);
-
         // Cambiar a la escena de Parte Verde con los datos del controlador
-        CambioEscena.cambiarEscenaConDatos(bt_parteVerde, "parteVerde.fxml", parteVerdeController);
+        CambioEscena.cambiarEscena(bt_parteVerde, "parteVerde.fxml");
     }
 
 
@@ -206,8 +189,15 @@ public class ParteNaranjaController implements Initializable {
     }
 
     private ParteIncidencia crearParte() {
-        return new ParteIncidencia(alumno, profesor.getId_profesor(), alumno.getGrupo(),
-            dpFecha.getValue().toString(), cbHora.getValue(), TaDescripcion.getText(),
-            TaSancion.getText(), ColorParte.NARANJA);
+        return new ParteIncidencia(
+                alumno,
+                profesor.getId_profesor(),
+                alumno.getGrupo(),
+                dpFecha.getValue().toString(),
+                cbHora.getValue(),
+                TaDescripcion.getText(),
+                TaSancion.getText(),
+                ColorParte.NARANJA
+        );
     }
 }

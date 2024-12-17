@@ -5,14 +5,11 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import ribera.practicapartes.GuardarProfesor;
+import ribera.practicapartes.Models.*;
 import ribera.practicapartes.Utils.AlertUtils;
-import ribera.practicapartes.Models.Profesor;
 import ribera.practicapartes.DAO.AlumnosDAO;
 import ribera.practicapartes.DAO.PartesDAO;
 import ribera.practicapartes.GuardarParte;
-import ribera.practicapartes.Models.Alumno;
-import ribera.practicapartes.Models.ColorParte;
-import ribera.practicapartes.Models.ParteIncidencia;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -67,11 +64,7 @@ public class ParteVerdeController implements Initializable {
     private PartesDAO partes = new PartesDAO();
     private AlumnosDAO alumnosDAO = new AlumnosDAO();
     private Alumno alumno;
-    private Profesor profesor;
-
-    public ParteVerdeController(Profesor profesor) {
-        this.profesor = profesor;
-    }
+    private Profesor profesor = SessionManager.getInstance().getProfesorAutenticado();
 
     @FXML
     void onActualizarParteClick(ActionEvent event) {
@@ -126,21 +119,15 @@ public class ParteVerdeController implements Initializable {
 
     @FXML
     void onParteNaranjaClick(ActionEvent event) throws IOException {
-        // Crear el controlador con los datos del profesor
-        ParteNaranjaController parteNaranjaController = new ParteNaranjaController(profesor);
-
-        // Llamar al método de cambio de escena con los datos
-        CambioEscena.cambiarEscenaConDatos(bt_parteNaranja, "parteNaranja.fxml", parteNaranjaController);
+        // Llamar al método de cambio de escena
+        CambioEscena.cambiarEscena(bt_parteNaranja, "parteNaranja.fxml");
     }
 
 
     @FXML
     void onParteRojoClick(ActionEvent event) throws IOException {
-        // Crear el controlador de la parte roja y pasar el profesor
-        ParteRojoController parteRojoController = new ParteRojoController(profesor);
-
-        // Cambiar a la escena de Parte Roja con los datos del controlador
-        CambioEscena.cambiarEscenaConDatos(bt_parteRojo, "parteRojo.fxml", parteRojoController);
+        // Cambiar a la escena de Parte Rojo
+        CambioEscena.cambiarEscena(bt_parteRojo, "parteRojo.fxml");
     }
 
     @FXML

@@ -9,10 +9,7 @@ import ribera.practicapartes.DAO.AlumnosDAO;
 import ribera.practicapartes.DAO.PartesDAO;
 import ribera.practicapartes.GuardarParte;
 import ribera.practicapartes.GuardarProfesor;
-import ribera.practicapartes.Models.Alumno;
-import ribera.practicapartes.Models.ColorParte;
-import ribera.practicapartes.Models.ParteIncidencia;
-import ribera.practicapartes.Models.Profesor;
+import ribera.practicapartes.Models.*;
 import ribera.practicapartes.Utils.AlertUtils;
 import ribera.practicapartes.Utils.CambioEscena;
 
@@ -68,11 +65,7 @@ public class ParteRojoController implements Initializable {
     private PartesDAO partes = new PartesDAO();
     private AlumnosDAO alumnosDAO = new AlumnosDAO();
     private Alumno alumno;
-    private Profesor profesor;
-
-    public ParteRojoController(Profesor profesor) {
-        this.profesor = profesor;
-    }
+    private Profesor profesor = SessionManager.getInstance().getProfesorAutenticado();
 
     @FXML
     void onActualizarParteClick(ActionEvent event) {
@@ -134,17 +127,17 @@ public class ParteRojoController implements Initializable {
 
     @FXML
     void onParteNaranjaClick(ActionEvent event) throws IOException {
-        CambioEscena.cambiarEscenaConDatos(bt_parteNaranja, "parteNaranja.fxml", new ParteNaranjaController(profesor));
+        CambioEscena.cambiarEscena(bt_parteNaranja, "parteNaranja.fxml");
     }
 
     @FXML
     void onParteRojoClick(ActionEvent event) throws IOException {
-        CambioEscena.cambiarEscenaConDatos(bt_parteRojo, "parteRojo.fxml", new ParteRojoController(profesor));
+
     }
 
     @FXML
     void onParteVerdeClick(ActionEvent event) throws IOException {
-        CambioEscena.cambiarEscenaConDatos(bt_parteVerde, "parteVerde.fxml", new ParteVerdeController(profesor));
+        CambioEscena.cambiarEscena(bt_parteVerde, "parteVerde.fxml");
     }
 
     @FXML

@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="808.0" prefWidth="1160.0" style="-fx-background-color: #70e968;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:controller="ribera.practicapartes.Controllers.ParteVerdeController" prefHeight="808.0" prefWidth="1160.0" style="-fx-background-color: #70e968;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="266.0" layoutY="44.0" text="PARTE VERDE DE ADVERTENCIA">
          <font>

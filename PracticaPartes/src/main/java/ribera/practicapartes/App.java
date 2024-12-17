@@ -16,11 +16,7 @@ import java.util.Objects;
 public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        //cambiar estas dos lineas a login
-        LoginController controller = new LoginController();
         FXMLLoader loader = new FXMLLoader(R.getUI("login.fxml"));
-
-        loader.setController(controller);
         Scene scene = new Scene(loader.load());
         stage.setTitle("Gestión de Partes");
         scene.getStylesheets().add(R.getStyles("styles.css").toExternalForm());

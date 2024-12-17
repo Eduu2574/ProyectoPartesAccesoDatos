@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="566.0" prefWidth="940.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:controller="ribera.practicapartes.Controllers.LoginController" alignment="CENTER" prefHeight="566.0" prefWidth="940.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
 
         <!-- Contenedor del formulario -->
