@@ -1,10 +1,7 @@
 package ribera.practicapartes.Controllers;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import ribera.practicapartes.GuardarProfesor;
 import ribera.practicapartes.Models.*;
 import ribera.practicapartes.Utils.AlertUtils;
 import ribera.practicapartes.DAO.AlumnosDAO;
@@ -15,7 +12,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import ribera.practicapartes.Utils.CambioEscena;
-import ribera.practicapartes.Utils.R;
 
 import java.io.IOException;
 import java.net.URL;
@@ -61,10 +57,10 @@ public class ParteVerdeController implements Initializable {
     private TextField tfNumExpediente;
 
 
-    private PartesDAO partes = new PartesDAO();
-    private AlumnosDAO alumnosDAO = new AlumnosDAO();
+    final private PartesDAO partes = new PartesDAO();
+    final private AlumnosDAO alumnosDAO = new AlumnosDAO();
     private Alumno alumno;
-    private Profesor profesor = SessionManager.getInstance().getProfesorAutenticado();
+    final private Profesor profesor = SessionManager.getInstance().getProfesorAutenticado();
 
     @FXML
     void onActualizarParteClick(ActionEvent event) {
@@ -98,7 +94,7 @@ public class ParteVerdeController implements Initializable {
     void onCrearParteClick(ActionEvent event) {
         if (validarCampos()) {
             ParteIncidencia parte = crearParte(ColorParte.VERDE);
-            alumnosDAO.actualizarPuntosAlumno(alumno, parte);
+            // alumnosDAO.actualizarPuntosAlumno(alumno, parte);
 
             if (partes.crearParte(parte)) {
                 AlertUtils.mostrarAviso("El parte ha sido creado correctamente.");

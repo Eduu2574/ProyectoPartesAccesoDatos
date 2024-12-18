@@ -12,6 +12,7 @@ public class ProfesorDAO {
 
     public boolean authenticate(String codigo, String password) {
         try (Session session = HibernateUtil.getSession()) {
+            assert session != null;
             Query<Profesor> query = session.createQuery(
                     "FROM Profesor WHERE numero_asignado = :codigo AND contrasena = :password",
                     Profesor.class
@@ -22,21 +23,29 @@ public class ProfesorDAO {
             Profesor profesor = query.uniqueResult();
 
             return profesor != null; // Retorna true si el usuario existe
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
         }
     }
 
     public Profesor obtenerProfesor(String codigo) {
-        Session session = HibernateUtil.getSession();
-        Transaction transaction = null;
         Profesor profesor = null;
         try {
-            transaction = session.beginTransaction();
-            profesor = session.createQuery("from Profesor where numero_asignado = :codigo", Profesor.class).setParameter("codigo", codigo)
-                    .uniqueResult();
-            transaction.commit();
+            Session session = HibernateUtil.getSession();
+            Transaction transaction = null;
+            try {
+                assert session != null;
+                transaction = session.beginTransaction();
+                profesor = session.createQuery("from Profesor where numero_asignado = :codigo", Profesor.class).setParameter("codigo", codigo)
+                        .uniqueResult();
+                transaction.commit();
+            } catch (Exception e) {
+                if (transaction != null)
+                    transaction.rollback();
+            }
         } catch (Exception e) {
-            if(transaction != null)
-                transaction.rollback();
+            System.out.println(e.getMessage());
         }
         return profesor;
     }

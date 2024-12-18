@@ -10,36 +10,45 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:controller="ribera.practicapartes.Controllers.listaAlumnosController" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="566.0" prefWidth="940.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <AnchorPane prefHeight="96.0" prefWidth="600.0" styleClass="fondo">
-         <children>
-            <Label layoutX="246.0" layoutY="14.0" styleClass="tittle_label" text="LISTA DE ALUMNOS" />
-            <TextField fx:id="expedienteBuscar" layoutX="30.0" layoutY="48.0" prefHeight="25.0" prefWidth="489.0" promptText="Buscar por numero de expediente" />
-            <Button fx:id="btnBuscar" layoutX="519.0" layoutY="48.0" mnemonicParsing="false" onAction="#onBtnBuscar" styleClass="botonBuscar" text="Buscar" />
-         </children>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <VBox.margin>
-            <Insets bottom="20.0" left="170.0" right="170.0" top="30.0" />
-         </VBox.margin>
-      </AnchorPane>
-      <AnchorPane prefHeight="346.0" prefWidth="840.0">
-         <VBox.margin>
-            <Insets bottom="20.0" left="50.0" right="50.0" />
-         </VBox.margin>
-         <children>
-            <Pagination fx:id="pagination" maxPageIndicatorCount="4" prefHeight="368.0" prefWidth="853.0" styleClass="fondo" />
-            <TableView fx:id="tablaAlumnos" prefHeight="304.0" prefWidth="853.0" styleClass="fondo">
-               <columns>
-                  <TableColumn fx:id="colExpediente" prefWidth="173.33323669433594" text="Numero expediente" />
-                  <TableColumn fx:id="colNombre" prefWidth="242.66676330566406" text="Nombre alumno" />
-                  <TableColumn fx:id="colGrupo" prefWidth="237.06671142578125" text="Nombre grupo " />
-                  <TableColumn fx:id="colPuntos" prefWidth="195.73321533203125" text="Puntos acumulados" />
-               </columns>
-            </TableView>
-         </children>
-      </AnchorPane>
-   </children>
+<?import javafx.scene.layout.HBox?>
+<VBox fx:controller="ribera.practicapartes.Controllers.listaAlumnosController" alignment="TOP_CENTER"
+      maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000"
+      prefWidth="1200" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+   <HBox>
+      <VBox>
+         <fx:include source="ui/barraNavegacion.fxml" />
+         <AnchorPane prefHeight="96.0" prefWidth="600.0" styleClass="fondo">
+            <children>
+               <Label layoutX="246.0" layoutY="14.0" styleClass="tittle_label" text="LISTA DE ALUMNOS"/>
+               <TextField fx:id="expedienteBuscar" layoutX="30.0" layoutY="48.0" prefHeight="25.0" prefWidth="489.0"
+                          promptText="Buscar por numero de expediente"/>
+               <Button fx:id="btnBuscar" layoutX="519.0" layoutY="48.0" mnemonicParsing="false" onAction="#onBtnBuscar"
+                       styleClass="botonBuscar" text="Buscar"/>
+            </children>
+            <opaqueInsets>
+               <Insets/>
+            </opaqueInsets>
+            <VBox.margin>
+               <Insets bottom="20.0" left="170.0" right="170.0" top="30.0"/>
+            </VBox.margin>
+         </AnchorPane>
+         <AnchorPane prefHeight="346.0" prefWidth="840.0">
+            <VBox.margin>
+               <Insets bottom="20.0" left="50.0" right="50.0"/>
+            </VBox.margin>
+            <children>
+               <Pagination fx:id="pagination" maxPageIndicatorCount="4" prefHeight="368.0" prefWidth="853.0"
+                           styleClass="fondo"/>
+               <TableView fx:id="tablaAlumnos" prefHeight="304.0" prefWidth="853.0" styleClass="fondo">
+                  <columns>
+                     <TableColumn fx:id="colExpediente" prefWidth="173.33323669433594" text="Numero expediente"/>
+                     <TableColumn fx:id="colNombre" prefWidth="242.66676330566406" text="Nombre alumno"/>
+                     <TableColumn fx:id="colGrupo" prefWidth="237.06671142578125" text="Nombre grupo "/>
+                     <TableColumn fx:id="colPuntos" prefWidth="195.73321533203125" text="Puntos acumulados"/>
+                  </columns>
+               </TableView>
+            </children>
+         </AnchorPane>
+      </VBox>
+   </HBox>
 </VBox>

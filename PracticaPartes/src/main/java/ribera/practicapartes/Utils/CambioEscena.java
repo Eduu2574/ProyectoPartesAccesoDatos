@@ -11,17 +11,14 @@ import java.io.IOException;
 public class CambioEscena {
 
     // Método genérico para cambiar de escena con un botón
-    public static void cambiarEscena(Button boton, String fxmlFile) {
-        try {
+    public static void cambiarEscena(Button boton, String fxmlFile) throws IOException {
             FXMLLoader fxmlLoader = new FXMLLoader(R.getUI(fxmlFile));  // Cargar el archivo FXML
             Parent root = fxmlLoader.load();  // Cargar el contenido FXML
 
             Scene scene = new Scene(root);  // Crear la escena con el contenido cargado
             Stage stage = (Stage) boton.getScene().getWindow();  // Obtener la ventana actual
             stage.setScene(scene);  // Cambiar la escena
-        } catch (Exception e) {
-            System.out.println("Error al cambiar la escena: " + e.getMessage());
-        }
+
     }
 
     // Método genérico para abrir una nueva ventana con una nueva escena

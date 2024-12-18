@@ -8,20 +8,27 @@ import ribera.practicapartes.Models.Grupos;
 import ribera.practicapartes.Models.ParteIncidencia;
 import ribera.practicapartes.Models.Profesor;
 
+import static ribera.practicapartes.Utils.AlertUtils.mostrarError;
+
 public class HibernateUtil {
 
     static SessionFactory factory = null;
     static {
-        Configuration cfg = new Configuration();
-        cfg.configure("configuration/hibernate.cfg.xml");
+        try {
+            Configuration cfg = new Configuration();
+            cfg.configure(R.getHibernate("hibernate.cfg.xml"));
 
-        cfg.addAnnotatedClass(Alumno.class);
-        cfg.addAnnotatedClass(Grupos.class);
-        cfg.addAnnotatedClass(Profesor.class);
-        cfg.addAnnotatedClass(ParteIncidencia.class);
+            cfg.addAnnotatedClass(Alumno.class);
+            cfg.addAnnotatedClass(Grupos.class);
+            cfg.addAnnotatedClass(Profesor.class);
+            cfg.addAnnotatedClass(ParteIncidencia.class);
 
 
-        factory = cfg.buildSessionFactory();
+            factory = cfg.buildSessionFactory();
+        } catch (Exception e) {
+            mostrarError("No pudo realizarse la conexión con la base de datos.");
+        }
+
     }
 
     public static SessionFactory getSessionFactory() {
@@ -29,6 +36,11 @@ public class HibernateUtil {
     }
 
     public static Session getSession() {
-        return factory.openSession();
+        if (factory != null) {
+            return factory.openSession();
+        }
+        mostrarError("Ha ocurrido un error en la conexión con la base de datos.");
+        System.out.println("Ha ocurrido un error en la conexión con la base de datos.");
+        return null;
     }
 }

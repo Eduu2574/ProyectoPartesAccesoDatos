@@ -1,14 +1,11 @@
 package ribera.practicapartes;
 
 import javafx.scene.image.Image;
-import ribera.practicapartes.Controllers.listaAlumnosController;
-import ribera.practicapartes.Controllers.listaPartesController;
 import ribera.practicapartes.Utils.R;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import ribera.practicapartes.Controllers.LoginController;
 
 import java.io.IOException;
 import java.util.Objects;
