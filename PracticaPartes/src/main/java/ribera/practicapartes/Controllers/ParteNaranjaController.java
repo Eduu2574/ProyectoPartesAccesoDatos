@@ -98,7 +98,7 @@ public class ParteNaranjaController implements Initializable {
     void onCrearParteClick(ActionEvent event) {
         if (validarCampos()) {
             ParteIncidencia parte = crearParte();
-            alumnosDAO.actualizarPuntosAlumno(alumno, parte); // Actualización de puntos del alumno
+            //alumnosDAO.actualizarPuntosAlumno(alumno, parte); // Actualización de puntos del alumno
             if (partes.crearParte(parte)) {
                 AlertUtils.mostrarAviso("El parte ha sido creado correctamente.");
                 limpiarCampos();
