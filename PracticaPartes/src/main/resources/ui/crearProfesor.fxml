@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="1000" prefWidth="1200.0" spacing="10" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ribera.practicapartes.Controllers.crearProfesorController">
+    <fx:include source="barraNavegacion.fxml" />
+   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
+      <children>
+          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="NEVER">
+            <children>
+               <VBox alignment="CENTER" fillWidth="false" prefHeight="232.0" prefWidth="413.0" spacing="20.0" styleClass="login_form">
+                  <children>
+                      
+                                  <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Crear Profesor" />
+                  
+                                  <GridPane hgap="10" vgap="10.0">
+                          <columnConstraints>
+                              <ColumnConstraints halignment="RIGHT" />
+                              <ColumnConstraints />
+                          </columnConstraints>
+                  
+                                      <Label text="Nombre:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                          <TextField fx:id="tfNombre" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                  
+                                      <Label text="Contraseña:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                          <PasswordField fx:id="pfContrasena" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  
+                                      <Label text="Número Asignado:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                          <TextField fx:id="tfNumeroAsignado" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  
+                                      <Label text="Tipo Profesor:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                          <ComboBox fx:id="cbTipo" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <rowConstraints>
+                           <RowConstraints />
+                           <RowConstraints />
+                           <RowConstraints />
+                           <RowConstraints />
+                        </rowConstraints>
+                      </GridPane>
+                  
+                                              <HBox alignment="CENTER" spacing="10">
+                          <Button fx:id="btnCrear" onAction="#onCrearClick" text="Crear" />
+                          <Button fx:id="btnCancelar" onAction="#onCancelarClick" text="Cancelar" />
+                      </HBox>
+                  </children>
+               </VBox>
+            </children>
+         </HBox>
+      </children>
+   </VBox>
+</VBox>

@@ -46,7 +46,7 @@ public class R {
      *         o {@code null} si no se encuentra el recurso.
      */
     public static URL getUI(String name) {
-        return Thread.currentThread().getContextClassLoader().getResource("ui" + File.separator + name);
+        return Thread.currentThread().getContextClassLoader().getResource("ui/" + File.separator + name);
     }
 
     /**

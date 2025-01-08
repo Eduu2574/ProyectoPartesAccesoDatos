@@ -73,7 +73,12 @@
     -fx-font-weight: bold;
 }
 
-/* DIEGO */
+.ventana-parte {
+    -fx-background-radius: 10;
+    -fx-padding: 20;
+    -fx-spacing: 18;
+}
+
 .fondo {
     -fx-background-color: #8de2f1;
     -fx-background-radius: 15px;

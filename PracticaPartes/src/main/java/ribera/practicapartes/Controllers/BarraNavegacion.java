@@ -40,6 +40,7 @@ public class BarraNavegacion {
         btnListaPartes.setOnAction(_ -> {
             try {
                 cambiarEscena(btnListaPartes, "listaPartes.fxml");
+
             } catch (IOException e) {
                 mostrarError("Error al cambiar de pestaña.");
             }
@@ -48,6 +49,7 @@ public class BarraNavegacion {
             try {
                 cambiarEscena(btnListaAlumnos, "listaAlumnos.fxml");
             } catch (IOException e) {
+                e.printStackTrace();
                 mostrarError("Error al cambiar de pestaña.");
             }
         });

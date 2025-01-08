@@ -49,4 +49,25 @@ public class ProfesorDAO {
         }
         return profesor;
     }
+    public boolean crearProfesor(Profesor profesor) {
+        Transaction transaction = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            // Iniciar transacción
+            transaction = session.beginTransaction();
+
+            // Guardar el objeto profesor en la base de datos
+            session.save(profesor);
+
+            // Confirmar transacción
+            transaction.commit();
+            return true;
+
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback(); // Revertir transacción en caso de error
+            }
+            System.err.println("Error al crear el profesor: " + e.getMessage());
+            return false;
+        }
+    }
 }

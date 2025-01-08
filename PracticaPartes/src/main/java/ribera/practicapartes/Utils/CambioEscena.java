@@ -17,6 +17,7 @@ public class CambioEscena {
 
             Scene scene = new Scene(root);  // Crear la escena con el contenido cargado
             Stage stage = (Stage) boton.getScene().getWindow();  // Obtener la ventana actual
+            stage.setMaximized(true);
             stage.setScene(scene);  // Cambiar la escena
             scene.getStylesheets().add(R.getStyles("styles.css").toExternalForm());
 
@@ -48,6 +49,7 @@ public class CambioEscena {
 
             Scene scene = new Scene(root);
             Stage stage = (Stage) boton.getScene().getWindow();  // Obtener la ventana actual
+
             stage.setScene(scene);  // Cambiar la escena
         } catch (Exception e) {
             System.out.println("Error al cambiar la escena con datos: " + e.getMessage());

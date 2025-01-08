@@ -8,90 +8,78 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
-
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox fx:controller="ribera.practicapartes.Controllers.ParteNaranjaController" prefHeight="1000"
-            prefWidth="1200.0" style="-fx-background-color: ffb53d;" xmlns="http://javafx.com/javafx/21"
-            xmlns:fx="http://javafx.com/fxml/1">
-   <HBox>
-      <VBox>
-         <fx:include source="ui/barraNavegacion.fxml" />
-         <AnchorPane>
-            <Label layoutX="186.0" layoutY="44.0" text="PARTE NARANJA DE NOTA NEGATIVA">
-               <font>
-                  <Font name="System Bold" size="42.0"/>
-               </font>
-            </Label>
-            <Button fx:id="bt_parteVerde" layoutX="225.0" layoutY="138.0" mnemonicParsing="false" onAction="#onParteVerdeClick"
-                    prefHeight="49.0" prefWidth="154.0" style="-fx-background-color: #20b916;" text="PARTE VERDE"/>
-            <Button fx:id="bt_parteNaranja" layoutX="491.0" layoutY="138.0" mnemonicParsing="false"
-                    onAction="#onParteNaranjaClick" prefHeight="49.0" prefWidth="154.0" style="-fx-background-color: #ff8300;"
-                    text="PARTE NARANJA"/>
-            <Button fx:id="bt_parteRojo" layoutX="755.0" layoutY="138.0" mnemonicParsing="false" onAction="#onParteRojoClick"
-                    prefHeight="49.0" prefWidth="154.0" style="-fx-background-color: #ff0000;" text="PARTE ROJO"/>
-            <Label layoutX="61.0" layoutY="231.0" prefHeight="30.0" prefWidth="291.0" text="NÚMERO EXPEDIENTE ALUMNO">
-               <font>
-                  <Font size="20.0"/>
-               </font>
-            </Label>
-            <Label layoutX="64.0" layoutY="402.0" text="FECHA:">
-               <font>
-                  <Font size="20.0"/>
-               </font>
-            </Label>
-            <DatePicker fx:id="dpFecha" layoutX="367.0" layoutY="391.0" prefHeight="39.0" prefWidth="282.0"/>
-            <Label layoutX="200.0" layoutY="486.0" prefHeight="27.0" prefWidth="282.0" text="DESCRIPCIÓN DE LOS HECHOS:">
-               <font>
-                  <Font name="System Bold" size="18.0"/>
-               </font>
-            </Label>
-            <TextArea fx:id="TaDescripcion" layoutX="64.0" layoutY="528.0" prefHeight="200.0" prefWidth="494.0"/>
-            <Label layoutX="753.0" layoutY="486.0" text="SANCIÓN A RECIBIR:">
-               <font>
-                  <Font name="System Bold" size="18.0"/>
-               </font>
-            </Label>
-            <TextArea fx:id="TaSancion" layoutX="611.0" layoutY="528.0" prefHeight="200.0" prefWidth="494.0"/>
-            <Label layoutX="64.0" layoutY="313.0" text="PROFESOR QUE INFORMA:">
-               <font>
-                  <Font size="20.0"/>
-               </font>
-            </Label>
-            <Label fx:id="tfNombreProfesor" layoutX="369.0" layoutY="309.0" prefHeight="39.0" prefWidth="282.0"
-                   style="-fx-background-color: white;">
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-               </padding>
-            </Label>
-            <ComboBox fx:id="cbHora" layoutX="850.0" layoutY="391.0" prefHeight="39.0" prefWidth="223.0"/>
-            <Label layoutX="746.0" layoutY="396.0" text="HORA:">
-               <font>
-                  <Font size="20.0"/>
-               </font>
-            </Label>
-            <Label layoutX="746.0" layoutY="232.0" text="GRUPO:">
-               <font>
-                  <Font size="20.0"/>
-               </font>
-            </Label>
-            <Label fx:id="tfGrupo" layoutX="850.0" layoutY="228.0" prefHeight="39.0" prefWidth="223.0"
-                   style="-fx-background-color: white;">
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-               </padding>
-            </Label>
-            <Button fx:id="BtCrear" layoutX="305.0" layoutY="739.0" mnemonicParsing="false" onAction="#onCrearParteClick"
-                    prefHeight="62.0" prefWidth="182.0" style="-fx-background-color: #3396ff;" text="CREAR PARTE"
-                    textFill="WHITE"/>
-            <Button fx:id="BtActualizar" layoutX="691.0" layoutY="739.0" mnemonicParsing="false"
-                    onAction="#onActualizarParteClick" prefHeight="62.0" prefWidth="182.0" style="-fx-background-color: #3396ff;"
-                    text="ACTUALIZAR PARTE" textFill="WHITE"/>
-            <TextField fx:id="tfNumExpediente" layoutX="379.0" layoutY="228.0" onKeyTyped="#onPressedAlumno" prefHeight="39.0"
-                       prefWidth="270.0"/>
-         </AnchorPane>
-      </VBox>
-   </HBox>
+<VBox prefHeight="1000" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ribera.practicapartes.Controllers.ParteNaranjaController">
+   <fx:include source="barraNavegacion.fxml" />
+   <VBox alignment="CENTER" VBox.vgrow="ALWAYS">
+      <HBox alignment="CENTER">
+         <children>
+            <AnchorPane style="-fx-background-color: ffb53d;" styleClass="ventana-parte">
+               <Label layoutX="186.0" layoutY="44.0" text="PARTE NARANJA DE NOTA NEGATIVA">
+                  <font>
+                     <Font name="System Bold" size="42.0" />
+                  </font>
+               </Label>
+               <Button fx:id="bt_parteVerde" layoutX="225.0" layoutY="138.0" mnemonicParsing="false" onAction="#onParteVerdeClick" prefHeight="49.0" prefWidth="154.0" style="-fx-background-color: #20b916;" text="PARTE VERDE" />
+               <Button fx:id="bt_parteNaranja" layoutX="491.0" layoutY="138.0" mnemonicParsing="false" onAction="#onParteNaranjaClick" prefHeight="49.0" prefWidth="154.0" style="-fx-background-color: #ff8300;" text="PARTE NARANJA" />
+               <Button fx:id="bt_parteRojo" layoutX="755.0" layoutY="138.0" mnemonicParsing="false" onAction="#onParteRojoClick" prefHeight="49.0" prefWidth="154.0" style="-fx-background-color: #ff0000;" text="PARTE ROJO" />
+               <Label layoutX="61.0" layoutY="231.0" prefHeight="30.0" prefWidth="291.0" text="NÚMERO EXPEDIENTE ALUMNO">
+                  <font>
+                     <Font size="20.0" />
+                  </font>
+               </Label>
+               <Label layoutX="64.0" layoutY="402.0" text="FECHA:">
+                  <font>
+                     <Font size="20.0" />
+                  </font>
+               </Label>
+               <DatePicker fx:id="dpFecha" layoutX="367.0" layoutY="391.0" prefHeight="39.0" prefWidth="282.0" />
+               <Label layoutX="200.0" layoutY="486.0" prefHeight="27.0" prefWidth="282.0" text="DESCRIPCIÓN DE LOS HECHOS:">
+                  <font>
+                     <Font name="System Bold" size="18.0" />
+                  </font>
+               </Label>
+               <TextArea fx:id="TaDescripcion" layoutX="64.0" layoutY="528.0" prefHeight="200.0" prefWidth="494.0" />
+               <Label layoutX="753.0" layoutY="486.0" text="SANCIÓN A RECIBIR:">
+                  <font>
+                     <Font name="System Bold" size="18.0" />
+                  </font>
+               </Label>
+               <TextArea fx:id="TaSancion" layoutX="611.0" layoutY="528.0" prefHeight="200.0" prefWidth="494.0" />
+               <Label layoutX="64.0" layoutY="313.0" text="PROFESOR QUE INFORMA:">
+                  <font>
+                     <Font size="20.0" />
+                  </font>
+               </Label>
+               <Label fx:id="tfNombreProfesor" layoutX="369.0" layoutY="309.0" prefHeight="39.0" prefWidth="282.0" style="-fx-background-color: white;">
+                  <padding>
+                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  </padding>
+               </Label>
+               <ComboBox fx:id="cbHora" layoutX="850.0" layoutY="391.0" prefHeight="39.0" prefWidth="223.0" />
+               <Label layoutX="746.0" layoutY="396.0" text="HORA:">
+                  <font>
+                     <Font size="20.0" />
+                  </font>
+               </Label>
+               <Label layoutX="746.0" layoutY="232.0" text="GRUPO:">
+                  <font>
+                     <Font size="20.0" />
+                  </font>
+               </Label>
+               <Label fx:id="tfGrupo" layoutX="850.0" layoutY="228.0" prefHeight="39.0" prefWidth="223.0" style="-fx-background-color: white;">
+                  <padding>
+                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  </padding>
+               </Label>
+               <Button fx:id="BtCrear" layoutX="305.0" layoutY="739.0" mnemonicParsing="false" onAction="#onCrearParteClick" prefHeight="62.0" prefWidth="182.0" style="-fx-background-color: #3396ff;" text="CREAR PARTE" textFill="WHITE" />
+               <Button fx:id="BtActualizar" layoutX="691.0" layoutY="739.0" mnemonicParsing="false" onAction="#onActualizarParteClick" prefHeight="62.0" prefWidth="182.0" style="-fx-background-color: #3396ff;" text="ACTUALIZAR PARTE" textFill="WHITE" />
+               <TextField fx:id="tfNumExpediente" layoutX="379.0" layoutY="228.0" onKeyTyped="#onPressedAlumno" prefHeight="39.0" prefWidth="270.0" />
+            </AnchorPane>
+         </children>
+      </HBox>
+   </VBox>
 </VBox>

@@ -1,32 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox spacing="20" alignment="CENTER_LEFT" xmlns:fx="http://javafx.com/fxml/1" prefWidth="1200" fx:controller="ribera.practicapartes.Controllers.BarraNavegacion">
-    <ImageView fitHeight="30" fitWidth="30">
-        <javafx.scene.image.Image url="@/images/logo_icono.jpg"/>
-    </ImageView>
+<HBox alignment="CENTER_LEFT" spacing="20" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="ribera.practicapartes.Controllers.BarraNavegacion">
 
-    <Button text="Crear Parte" style="-fx-text-fill: #333;" fx:id="btnCrearParte">
+    <Button fx:id="btnCrearParte" style="-fx-text-fill: #333;" text="Crear Parte">
         <font>
-            <Font name="Arial" size="14"/>
+            <Font name="Arial" size="14" />
         </font>
     </Button>
-    <Button text="Lista de Partes" style="-fx-text-fill: #333;" fx:id="btnListaPartes">
+    <Button fx:id="btnListaPartes" style="-fx-text-fill: #333;" text="Lista de Partes">
         <font>
-            <Font name="Arial" size="14"/>
+            <Font name="Arial" size="14" />
         </font>
     </Button>
-    <Button text="Lista de Alumnos" style="-fx-text-fill: #333;" fx:id="btnListaAlumnos">
+    <Button fx:id="btnListaAlumnos" style="-fx-text-fill: #333;" text="Lista de Alumnos">
         <font>
-            <Font name="Arial" size="14"/>
+            <Font name="Arial" size="14" />
         </font>
     </Button>
-    <Button text="Crear Profesor" style="-fx-text-fill: #333;" fx:id="btnCrearProfesor">
+    <Button fx:id="btnCrearProfesor" style="-fx-text-fill: #333;" text="Crear Profesor">
         <font>
-            <Font name="Arial" size="14"/>
+            <Font name="Arial" size="14" />
         </font>
     </Button>
+   <padding>
+      <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+   </padding>
 </HBox>

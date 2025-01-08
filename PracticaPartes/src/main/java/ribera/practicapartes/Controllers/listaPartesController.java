@@ -9,8 +9,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import org.controlsfx.control.PropertySheet;
 import ribera.practicapartes.DAO.PartesDAO;
 import ribera.practicapartes.Models.ParteIncidencia;
+import ribera.practicapartes.Models.ParteVerManager;
 import ribera.practicapartes.Utils.AlertUtils;
+import ribera.practicapartes.Utils.CambioEscena;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -56,7 +59,7 @@ public class listaPartesController {
         col_expediente.setCellValueFactory(new PropertyValueFactory<>("expediente_alumno"));
         col_alumno.setCellValueFactory(new PropertyValueFactory<>("alumno"));
         col_grupo.setCellValueFactory(new PropertyValueFactory<>("grupo"));
-        col_profesor.setCellValueFactory(new PropertyValueFactory<>("profesor"));
+        col_profesor.setCellValueFactory(new PropertyValueFactory<>("id_profesor"));
         col_fecha.setCellValueFactory(new PropertyValueFactory<>("fecha"));
         col_descripcion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
         col_sancion.setCellValueFactory(new PropertyValueFactory<>("sancion"));
@@ -92,7 +95,12 @@ public class listaPartesController {
                 btn.setOnAction(event -> {
                     ParteIncidencia item = getTableRow().getItem(); // Obtener el item asociado a la fila
                     if (item != null) {
-                        AlertUtils.mostrarAviso(item.toString());
+                        try {
+                            ParteVerManager.getInstance().setParteSeleccionado(item);
+                            CambioEscena.cambiarEscena(btn, "parteVer.fxml");
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 });
                 btn.setStyle("-fx-background-color: #0078D7; -fx-text-fill: white; -fx-border-radius: 5px; -fx-font-size: 14px; -fx-padding: 5px 10px;");
