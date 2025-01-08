@@ -1,9 +1,11 @@
 package ribera.practicapartes.Utils;
 
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -17,7 +19,11 @@ public class CambioEscena {
 
             Scene scene = new Scene(root);  // Crear la escena con el contenido cargado
             Stage stage = (Stage) boton.getScene().getWindow();  // Obtener la ventana actual
-            stage.setMaximized(true);
+            Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+            stage.setX(screenBounds.getMinX());
+            stage.setY(screenBounds.getMinY());
+            stage.setWidth(screenBounds.getWidth());
+            stage.setHeight(screenBounds.getHeight());
             stage.setScene(scene);  // Cambiar la escena
             scene.getStylesheets().add(R.getStyles("styles.css").toExternalForm());
 
@@ -32,6 +38,11 @@ public class CambioEscena {
 
             Scene scene = new Scene(root);  // Crear la escena con el contenido cargado
             Stage stage = new Stage();  // Crear una nueva ventana
+            Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+            stage.setX(screenBounds.getMinX());
+            stage.setY(screenBounds.getMinY());
+            stage.setWidth(screenBounds.getWidth());
+            stage.setHeight(screenBounds.getHeight());
             stage.setScene(scene);  // Establecer la escena en la ventana
             stage.setTitle(titulo);  // Establecer el título de la ventana
             stage.show();  // Mostrar la ventana
@@ -49,6 +60,11 @@ public class CambioEscena {
 
             Scene scene = new Scene(root);
             Stage stage = (Stage) boton.getScene().getWindow();  // Obtener la ventana actual
+            Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+            stage.setX(screenBounds.getMinX());
+            stage.setY(screenBounds.getMinY());
+            stage.setWidth(screenBounds.getWidth());
+            stage.setHeight(screenBounds.getHeight());
 
             stage.setScene(scene);  // Cambiar la escena
         } catch (Exception e) {
